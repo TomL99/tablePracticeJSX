@@ -9,7 +9,7 @@ class TableDetails extends React.Component {
             let results = this.props.componentDetails["results"]
             let keys = Object.keys(results[0])
             componentHeader = keys.map( key => 
-                <td key={key}> {key} </td>
+                <th key={key}> {key} </th>
             ) 
             componentDetails = results.map( result => <tr>
                 {keys.map(key => <td key={key}> {result[key]} </td>)}
@@ -17,10 +17,8 @@ class TableDetails extends React.Component {
         }
         
         return (
-            <table>
-                <thead style= {{
-                    backgroundColor: 'mediumslateblue'}}
-                >
+            <table class="table">
+                <thead class="thead-dark">
                     <tr>
                         {componentHeader}
                     </tr>

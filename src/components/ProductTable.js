@@ -36,10 +36,14 @@ class ProductTable extends React.Component {
     render() {
         return (
             <div>
-                <h1>Star Wars Table</h1>
+                <nav class="navbar navbar-dark bg-primary">
+                    <a class="navbar-brand" href="#">
+                        Star Wars Table
+                    </a>
+                </nav>
                 <div>{
                     Object.keys(this.state.jsonValues).map (
-                        key => <button key={key} id={key} onClick={() => this.setStateClick({key})}> {key} </button>
+                        key => <button type="button" class="btn btn-link" key={key} id={key} onClick={() => this.setStateClick({key})}> {key} </button>
                     )}
                 </div>
                 <br></br>
