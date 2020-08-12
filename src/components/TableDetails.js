@@ -1,52 +1,32 @@
 import React from 'react';
 
 class TableDetails extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            valueClicked : "",
-        }
-        this.setNewState = this.setNewState.bind(this);
-    }
-
-
-    setNewState(valueClicked, tableValues) {
-        //console.log("called setNewState")
-        let results = tableValues["results"]
-        let keys = Object.keys(results[0])
-        let tableHeaders = keys.map( key => 
-            <td> {key} </td>
-        )
-        let tableBody = results.map( result => <tr>
-            {keys.map(key => <td> {result[key]} </td>)}
-        </tr> )
-        this.setState( () => ({
-            valueClicked: valueClicked,
-            tableHeaders: tableHeaders,
-            tableBody : tableBody
-        }))
-    }
 
     render() {
-       //console.log(this.props.valueClicked)
-        if (this.props.valueClicked !== this.state.valueClicked) {
-            fetch(this.props.valueClicked)
-                .then(response => response.json())
-                .then( data => this.setNewState(this.props.valueClicked, data) )
-            //console.log("called")
+        let componentHeader
+        let componentDetails
+        if (this.props.componentDetails) {
+            let results = this.props.componentDetails["results"]
+            let keys = Object.keys(results[0])
+            componentHeader = keys.map( key => 
+                <td key={key}> {key} </td>
+            ) 
+            componentDetails = results.map( result => <tr>
+                {keys.map(key => <td key={key}> {result[key]} </td>)}
+            </tr>)
         }
- 
+        
         return (
             <table>
                 <thead style= {{
                     backgroundColor: 'mediumslateblue'}}
                 >
                     <tr>
-                        {this.state.tableHeaders}
+                        {componentHeader}
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.tableBody}
+                    {componentDetails}
                 </tbody>
             </table>
         )

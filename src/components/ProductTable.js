@@ -10,38 +10,46 @@ class ProductTable extends React.Component {
             jsonValues: {},
             valueClicked: ""
         }
-        this.setClick = this.setClick.bind(this);
+        this.setStateClick = this.setStateClick.bind(this);
     }
 
-    setClick(value) {
-        this.setState( prevState => ({
-            fetched : true,
-            jsonValues: prevState.jsonValues,
-            valueClicked : value["key"]
-        }))
+    setStateClick(value) {
+        fetch(this.state.jsonValues[value["key"]])
+                .then(response => response.json())
+                .then( data => this.setState( prevState => ({
+                    fetched : true,
+                    jsonValues: prevState.jsonValues,
+                    valueClicked : value["key"],
+                    componentData: data,
+                    }))
+                )
     }
     
-    render() {
+    componentDidMount() {
         if (this.state.fetched === false) {
             fetch('https://swapi.dev/api/?format=json')
                 .then(response => response.json())
                 .then( data => this.setState({fetched : true, jsonValues: data}))        
         }
+    }
 
-        let productComponents = Object.keys(this.state.jsonValues).map (
-            key => <button key={key} id={key} onClick={() => this.setClick({key})}> {key} </button>
-        )
-        
+    render() {
         return (
             <div>
                 <h1>Star Wars Table</h1>
-                <div>{productComponents}</div>
+                <div>{
+                    Object.keys(this.state.jsonValues).map (
+                        key => <button key={key} id={key} onClick={() => this.setStateClick({key})}> {key} </button>
+                    )}
+                </div>
                 <br></br>
-                <TableDetails valueClicked={this.state.jsonValues[this.state.valueClicked]}></TableDetails>
+                <TableDetails 
+                    componentDetails = {this.state.componentData} 
+                >
+                </TableDetails>
             </div>
         )
     }  
 } 
-
 
 export default ProductTable
