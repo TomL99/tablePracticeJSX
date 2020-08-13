@@ -1,5 +1,7 @@
 import React from 'react';
-import TableDetails from './TableDetails'
+import TableDetails from './TableDetails';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 
 class ProductTable extends React.Component {
@@ -36,21 +38,26 @@ class ProductTable extends React.Component {
     render() {
         return (
             <div>
-                <nav class="navbar navbar-dark bg-primary">
-                    <a class="navbar-brand" href="#">
-                        Star Wars Table
-                    </a>
-                </nav>
-                <div>{
-                    Object.keys(this.state.jsonValues).map (
-                        key => <button type="button" class="btn btn-link" key={key} id={key} onClick={() => this.setStateClick({key})}> {key} </button>
-                    )}
-                </div>
-                <br></br>
-                <TableDetails 
-                    componentDetails = {this.state.componentData} 
-                >
-                </TableDetails>
+                <Router>
+                    <div>
+                        <nav class="navbar navbar-dark bg-primary">
+                            <a class="navbar-brand" href="/">
+                                Star Wars Table
+                            </a>
+                        </nav>
+                    </div>
+                    <div>{
+                        Object.keys(this.state.jsonValues).map (
+                            key => <Link to={`/${key}`}>
+                                <button type="button" class="btn btn-link" key={key} id={key} onClick={() => this.setStateClick({key})}> {key} </button>
+                            </Link>
+                        )}
+                    </div>
+                    <br></br>
+                    <TableDetails 
+                        componentDetails = {this.state.componentData}>
+                    </TableDetails>
+                </Router>
             </div>
         )
     }  
