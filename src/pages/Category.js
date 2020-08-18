@@ -10,7 +10,8 @@ export default function Category ({match}) {
     const [data, setData] = useContext(StarWarContext)
     setData(prevState => ({
         ...prevState, 
-        urlTable: `https://swapi.dev/api/${match.params.name}?format=json`
+        urlTable: `https://swapi.dev/api/${match.params.name}?format=json`,
+        called: "table"
     }))
 
     return (

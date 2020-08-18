@@ -12,12 +12,13 @@ function TransitionBtn({next, previous}) {
     const [items, setItems] = useContext(UseSWContext)
 
     const nextClick = () => {
-        setData(next)
+        /*setData(next)
         fetchData(next)
+        */
     }
 
     const previousClick = () => {
-        setData(previous)
+       // setData(previous)
     }
 
     const fetchData = async (url) => {

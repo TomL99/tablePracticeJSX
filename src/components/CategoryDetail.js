@@ -18,17 +18,24 @@ export default function CategoryDetail(props) {
 
         
         const retrieveDetails = async () => {
-            const response = await fetch(data.urlTable)
+            /*const response = await fetch(data.urlTable)
             const info = await response.json()
+            setDetails(prevState => ({
+                ...prevState, 
+                tableInfo: info
+            }))
+            
             setNext(info.next)
             setPrev(info.previous)
+            */
         }
         console.log("details in Category details", details)
         let keys
         let headers
         let body
-        if (details.urlTable) {
-            keys = Object.keys(details.urlTable[0])
+        console.log("tableInfo", details)
+        if (details.tableInfo) {
+            keys = Object.keys(details.tableInfo[0])
             headers = keys.map(k => <th>{k}</th>)
             body = details.map(d => <tr> {keys.map(key => <td>{d[key]}</td>)} </tr>)
         }

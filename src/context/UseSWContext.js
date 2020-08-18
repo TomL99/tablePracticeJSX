@@ -32,7 +32,7 @@ export const UseSWContextFunc = (props) => {
             console.log(info)
             setItems(prevState => ({
                 ...prevState, 
-                urlTable: info
+                tableInfo: info
             }
             ))
         }
