@@ -1,48 +1,46 @@
-import React, {createContext, useState, useContext, useEffect} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {StarWarContext} from "./SWContext"
 
-export const UseSWContext = createContext()
-
-export const UseSWContextFunc = (props) => {
-    console.log("UseSWContext")
+export const useSWContext = () => {
     const [data, setData] = useContext(StarWarContext)
-    const [items, setItems] = useState({
-        navBarInfo: {},
-        tableInfo: {}
-    })
-
+    
     useEffect(() => {
-        retrieveItems()
-    },[])
+        retrieveDetailsNav()
+    },[]) //this is called like componentDidMount
 
-    const retrieveItems = async () => {
-        console.log("retrieving Items")
-        if (data.called === "nav") {
-            let response = await fetch(data.urlNav)
-            let info = await response.json()
-            console.log(info)
-            setItems(prevState => ({
-                ...prevState, 
-                navBarData: info
-            }
-            ))
-        } else {
-            let response = await fetch(data.urlTable)
-            let info = await response.json()
-            console.log(info)
-            setItems(prevState => ({
-                ...prevState, 
-                tableInfo: info
-            }
-            ))
-        }
+    const retrieveDetailsNav = async () => {
+        let response = await fetch(data.urlNav)
+        let info = await response.json()
+        setData(prevState => ({
+            ...prevState, 
+             navBarData: info
+        }))
     }
 
-    console.log("fromUse", items)
-    console.log(data)
+    const retrieveDetailsTable = async () => {
+        let url = data.urlTable1 + data.tableName + data.urlTable2
+        let response = await fetch(url)
+        let info = await response.json()
+        setData(prevState => ({
+            ...prevState, 
+             tableData: info
+        }))
+    }
+
+    const setTableName = async (name) => {
+        console.log("url set", name)
+        setData(prevState => ({
+            ...prevState,
+            tableName: name
+        }))
+    }
+    
     return (
-        <UseSWContext.Provider value={[items, setItems]}>
-            {props.children}
-        </UseSWContext.Provider>
+        {   
+            data,
+            retrieveDetailsNav, 
+            retrieveDetailsTable,
+            setTableName
+        }
     )
 }

@@ -1,10 +1,9 @@
 import React from 'react';
-import Home from '../pages/Home'
-import Category from '../pages/Category'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import "../App.css"
-import NavBar from "../components/Navbar"
-import {StarWarContextProvider} from '../context/SWContext'
+import Home from './pages/Home'
+import Category from './pages/Category'
+import {BrowserRouter as Switch, Route} from 'react-router-dom';
+import "./App.css"
+import {StarWarContextProvider} from './context/SWContext'
 
 function App() {
   return (
@@ -15,7 +14,7 @@ function App() {
             <Route exact path="/home" component={Home}/>
             <Route path="/category/:name" component={Category}/>
         </Switch>
-    </StarWarContextProvider>
+      </StarWarContextProvider>
     </div>
   )
 }

@@ -1,26 +1,30 @@
 import React, {useContext, useState, useEffect} from "react"
 import CategoryDetail from "../components/CategoryDetail"
 import NavBar from "../components/Navbar"
-import {UseSWContextFunc} from "../context/UseSWContext"
-import {StarWarContext} from '../context/SWContext' 
+import {useSWContext} from "../context/UseSWContext"
 
 
 export default function Category ({match}) {
     let name = match.params.name
-    const [data, setData] = useContext(StarWarContext)
-    setData(prevState => ({
-        ...prevState, 
-        urlTable: `https://swapi.dev/api/${match.params.name}?format=json`,
-        called: "table"
-    }))
+    const {data, setTableName} = useSWContext()
+    /*
+    if (data.urlTable !== `https://swapi.dev/api/${match.params.name}?format=json`) {
+        setUrlTable(
+            `https://swapi.dev/api/${match.params.name}?format=json`
+        )
+    }
+    */
+    if (data.tableName !== name) {
+        setTableName(name)
+    }
 
+    console.log("data Category", data)
+    
     return (
         <div>
-            <UseSWContextFunc>
-                    <NavBar></NavBar>
-                    <h1>Category: {name}</h1>
-                    <CategoryDetail/>
-            </UseSWContextFunc>
+            <NavBar></NavBar>
+            <h1>Category: {name}</h1>
+            <CategoryDetail name={name}/>
         </div>
     )
 }
