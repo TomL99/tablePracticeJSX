@@ -11,36 +11,27 @@ export const useSWContext = () => {
     const retrieveDetailsNav = async () => {
         let response = await fetch(data.urlNav)
         let info = await response.json()
-        setData(prevState => ({
-            ...prevState, 
+        setData( {
+            ...data, 
              navBarData: info
-        }))
+        })
     }
 
-    const retrieveDetailsTable = async () => {
-        let url = data.urlTable1 + data.tableName + data.urlTable2
+    const retrieveDetailsTable = async (url) => {
         let response = await fetch(url)
         let info = await response.json()
-        setData(prevState => ({
-            ...prevState, 
-             tableData: info
-        }))
+        setData( {
+            ...data,
+             tableData: info,
+             tableResults: info.results
+        })
     }
 
-    const setTableName = async (name) => {
-        console.log("url set", name)
-        setData(prevState => ({
-            ...prevState,
-            tableName: name
-        }))
-    }
-    
     return (
         {   
             data,
             retrieveDetailsNav, 
             retrieveDetailsTable,
-            setTableName
         }
     )
 }

@@ -3,31 +3,30 @@ import TransitionButton from "./TransitionBtn"
 import {useSWContext} from '../context/UseSWContext'
 
 
-
-export default function CategoryDetail(props) {    
-        const {data, retrieveDetailsTable, setUrlTable} = useSWContext()
-        console.log("data CategoryDetail", data.tableData)
-        if (data.tableData.results == 0) {
-            retrieveDetailsTable()
+export default function CategoryDetail({name}) {    
+        const {data, retrieveDetailsTable} = useSWContext()
+        if (data.tableResults.length == 1) {
+            retrieveDetailsTable(data.navBarData[name])
         }
-        
-        console.log("data tableData", data)
-        let keys = Object.keys(data.tableData.results[0])
+        let keys = Object.keys(data.tableResults[0])
         let headers = keys.map(k => <th>{k}</th>)
-        let body = data.tableData.results.map(d => <tr> {keys.map(key => <td>{d[key]}</td>)} </tr>)
-        
-        
+        let body = data.tableResults.map(d => <tr> {keys.map(key => <td key={key}>{d[key]}</td>)} </tr>)
+       
         return (
-            <div>
-                <TransitionButton next={data.tableData.next} previous={data.tableData.previous}></TransitionButton>
-                <table>
-                    <thead>
-                        <tr>{headers}</tr>
-                    </thead>
-                    <tbody>
-                        {body}
-                    </tbody>
-                </table>
-            </div>
+            <>
+                {data.tableResults.length == 1? <div>Loading</div> :
+                <div>
+                    <TransitionButton next={data.tableData.next} previous={data.tableData.previous}></TransitionButton>
+                    <table>
+                        <thead>
+                            <tr>{headers}</tr>
+                        </thead>
+                        <tbody>
+                            {body}
+                        </tbody>
+                    </table>
+                </div>
+                }
+            </>
         )
 }

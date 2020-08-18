@@ -5,11 +5,9 @@ export const StarWarContext = createContext()
 export const StarWarContextProvider = (props) => {
 	const [data, setData] = useState({
 		urlNav: "https://swapi.dev/api/?format=json", 
-		urlTable1: "`https://swapi.dev/api/",
-		urlTable2: "?format=json`",
-		tableName: "",
 		navBarData: {},
-        tableData: {}
+		tableData: {},
+		tableResults: [{}]
 	})	
 	return (
 		<StarWarContext.Provider value={[data, setData]}>
