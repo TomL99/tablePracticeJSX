@@ -6,8 +6,10 @@ export const UseSWContext = createContext()
 export const UseSWContextFunc = (props) => {
     console.log("UseSWContext")
     const [data, setData] = useContext(StarWarContext)
-    const [items, setItems] = useState({})
-    console.log(data)
+    const [items, setItems] = useState({
+        navBarInfo: {},
+        tableInfo: {}
+    })
 
     useEffect(() => {
         retrieveItems()
@@ -15,12 +17,29 @@ export const UseSWContextFunc = (props) => {
 
     const retrieveItems = async () => {
         console.log("retrieving Items")
-        let response = await fetch(data)
-        let info = await response.json()
-        setItems(info)
+        if (data.called === "nav") {
+            let response = await fetch(data.urlNav)
+            let info = await response.json()
+            console.log(info)
+            setItems(prevState => ({
+                ...prevState, 
+                navBarData: info
+            }
+            ))
+        } else {
+            let response = await fetch(data.urlTable)
+            let info = await response.json()
+            console.log(info)
+            setItems(prevState => ({
+                ...prevState, 
+                urlTable: info
+            }
+            ))
+        }
     }
 
     console.log("fromUse", items)
+    console.log(data)
     return (
         <UseSWContext.Provider value={[items, setItems]}>
             {props.children}

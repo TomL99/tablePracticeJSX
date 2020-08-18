@@ -4,6 +4,7 @@ import {UseSWContext} from '../context/UseSWContext'
 
 export default function NavBar(props) {
     const[items, setItems] = useContext(UseSWContext)
+    console.log("items nav", items.navBarData)
     let list = []
     list.push( <Link to='/'>
                     <button type="button" class="navitem">
@@ -12,8 +13,8 @@ export default function NavBar(props) {
                 </Link>
     )
 
-    if (items) {
-        Object.keys(items).map(r => 
+    if (items.navBarData) {
+        Object.keys(items.navBarData).map(r => 
             list.push(
                 <Link key={r} to={`/category/${r}`} style={{textDecoration:'none'}}>
                     <button type="button" class="navitem">{r}</button>

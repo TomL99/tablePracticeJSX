@@ -4,7 +4,7 @@ import {StarWarContext} from '../context/SWContext'
 import {UseSWContext} from '../context/UseSWContext'
 
 
-/*
+
 export default function CategoryDetail(props) {
         useEffect(() => {
                 retrieveDetails()
@@ -12,16 +12,13 @@ export default function CategoryDetail(props) {
         ,[])
         
         const [data, setData] = useContext(StarWarContext)
-        setData(props.url)
-        console.log(props.url)
-        console.log("category Detail", data)
         const [details, setDetails] = useContext(UseSWContext)
         const [next, setNext] = useState()
         const [prev, setPrev] = useState()
 
         
         const retrieveDetails = async () => {
-            const response = await fetch(data)
+            const response = await fetch(data.urlTable)
             const info = await response.json()
             setNext(info.next)
             setPrev(info.previous)
@@ -30,8 +27,8 @@ export default function CategoryDetail(props) {
         let keys
         let headers
         let body
-        if (details) {
-            keys = Object.keys(details[0])
+        if (details.urlTable) {
+            keys = Object.keys(details.urlTable[0])
             headers = keys.map(k => <th>{k}</th>)
             body = details.map(d => <tr> {keys.map(key => <td>{d[key]}</td>)} </tr>)
         }
@@ -49,8 +46,9 @@ export default function CategoryDetail(props) {
             </div>
         )
 }
-*/
 
+
+/*
 export default function CategoryDetail(props) {
     useEffect(() => {
             retrieveDetails()
@@ -96,3 +94,4 @@ export default function CategoryDetail(props) {
         </div>
     )
 }
+*/

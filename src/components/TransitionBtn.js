@@ -4,11 +4,12 @@ import {StarWarContext} from '../context/SWContext'
 import {UseSWContext} from '../context/UseSWContext'
 
 
+
 function TransitionBtn({next, previous}) {
     console.log("next", next)
     console.log("prev", previous)
     const [data, setData] = useContext(StarWarContext)
-    const[items, setItems] = useContext(UseSWContext)
+    const [items, setItems] = useContext(UseSWContext)
 
     const nextClick = () => {
         setData(next)

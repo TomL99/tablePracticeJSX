@@ -7,7 +7,6 @@ import NavBar from "../components/Navbar"
 import {StarWarContextProvider} from '../context/SWContext'
 
 function App() {
-  console.log("app Start")
   return (
     <div>
       <StarWarContextProvider>
