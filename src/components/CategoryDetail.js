@@ -6,7 +6,7 @@ import {useSWContext} from '../context/UseSWContext'
 export default function CategoryDetail({name}) {    
         const {data, retrieveDetailsTable} = useSWContext()
         let results = [{}]
-        if (data.tableData.results === undefined || data.name != name) {
+        if (data.name != name) {
             retrieveDetailsTable(data.navBarData[name], name)
         } else {
             results = data.tableData.results
