@@ -4,6 +4,7 @@ import {StarWarContext} from "./SWContext"
 export const useSWContext = () => {
     const [data, setData] = useContext(StarWarContext)
     
+    /*
     useEffect(() => {
         console.log("useEffect called")
         retrieveDetailsNav()
@@ -18,6 +19,7 @@ export const useSWContext = () => {
              navBarData: info
         }))
     }
+    */
 
     const retrieveDetailsTable = async (url, name) => {
         let response = await fetch(url)
@@ -33,7 +35,6 @@ export const useSWContext = () => {
     return (
         {   
             data,
-            retrieveDetailsNav, 
             retrieveDetailsTable,
         }
     )

@@ -5,10 +5,9 @@ import {useSWContext} from '../context/UseSWContext'
 export default function NavBar(props) {
     const {data, retrieveDetailsNav} = useSWContext()
 
-    if (data.navBarData.length == 0) {
-        retrieveDetailsNav()
-    }
-    let list = Object.keys(data.navBarData).map(r => 
+    let navBarData = []
+    navBarData = data.navBarData
+    let list = Object.keys(navBarData).map(r => 
         <Link key={r} to={`/category/${r}`} style={{textDecoration:'none'}}>
             <button type="button" className="navitem">{r}</button>
         </Link>

@@ -10,6 +10,21 @@ export const StarWarContextProvider = (props) => {
 		tableResults: [{}],
 		name: ""
 	})	
+
+	useEffect(() => {
+        console.log("useEffect called")
+        retrieveDetailsNav()
+    },[]) //this is called like componentDidMount
+
+    const retrieveDetailsNav = async () => {
+        console.log("retreiveDetailsNav called")
+        let response = await fetch(data.urlNav)
+        let info = await response.json()
+        setData( prevData => ({
+            ...prevData, 
+             navBarData: info
+        }))
+    }
 	return (
 		<StarWarContext.Provider value={[data, setData]}>
 			{props.children}
