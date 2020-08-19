@@ -5,18 +5,22 @@ import {useSWContext} from '../context/UseSWContext'
 
 export default function CategoryDetail({name}) {    
         const {data, retrieveDetailsTable} = useSWContext()
-        if (data.tableResults.length == 1) {
-            retrieveDetailsTable(data.navBarData[name])
+        let results = [{}]
+        if (data.tableData.results === undefined || data.name != name) {
+            retrieveDetailsTable(data.navBarData[name], name)
+        } else {
+            results = data.tableData.results
         }
-        let keys = Object.keys(data.tableResults[0])
+
+        let keys = Object.keys(results[0])
         let headers = keys.map(k => <th>{k}</th>)
-        let body = data.tableResults.map(d => <tr> {keys.map(key => <td key={key}>{d[key]}</td>)} </tr>)
+        let body = results.map(d => <tr> {keys.map(key => <td key={key}>{d[key]}</td>)} </tr>)
        
         return (
             <>
-                {data.tableResults.length == 1? <div>Loading</div> :
+                {data.tableData.results === undefined? <div>Loading</div> :
                 <div>
-                    <TransitionButton next={data.tableData.next} previous={data.tableData.previous}></TransitionButton>
+                    <TransitionButton next={data.tableData.next} previous={data.tableData.previous} name={name}></TransitionButton>
                     <table>
                         <thead>
                             <tr>{headers}</tr>

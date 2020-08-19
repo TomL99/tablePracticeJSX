@@ -7,7 +7,8 @@ export const StarWarContextProvider = (props) => {
 		urlNav: "https://swapi.dev/api/?format=json", 
 		navBarData: {},
 		tableData: {},
-		tableResults: [{}]
+		tableResults: [{}],
+		name: ""
 	})	
 	return (
 		<StarWarContext.Provider value={[data, setData]}>

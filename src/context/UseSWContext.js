@@ -5,26 +5,29 @@ export const useSWContext = () => {
     const [data, setData] = useContext(StarWarContext)
     
     useEffect(() => {
+        console.log("useEffect called")
         retrieveDetailsNav()
     },[]) //this is called like componentDidMount
 
     const retrieveDetailsNav = async () => {
+        console.log("retreiveDetailsNav called")
         let response = await fetch(data.urlNav)
         let info = await response.json()
-        setData( {
-            ...data, 
+        setData( prevData => ({
+            ...prevData, 
              navBarData: info
-        })
+        }))
     }
 
-    const retrieveDetailsTable = async (url) => {
+    const retrieveDetailsTable = async (url, name) => {
         let response = await fetch(url)
         let info = await response.json()
-        setData( {
-            ...data,
+        setData( prevData => ({
+            ...prevData,
              tableData: info,
-             tableResults: info.results
-        })
+             tableResults: info.results,
+             name: name
+        }))
     }
 
     return (

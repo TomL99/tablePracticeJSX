@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom'
 import {useSWContext} from '../context/UseSWContext'
 
 export default function NavBar(props) {
-    function refreshPage(){ 
-        console.log("window location", window.location.href)
-    }
-    
     const {data, retrieveDetailsNav} = useSWContext()
 
     if (data.navBarData.length == 0) {
@@ -14,7 +10,7 @@ export default function NavBar(props) {
     }
     let list = Object.keys(data.navBarData).map(r => 
         <Link key={r} to={`/category/${r}`} style={{textDecoration:'none'}}>
-            <button type="button"  onClick={ refreshPage } className="navitem">{r}</button>
+            <button type="button" className="navitem">{r}</button>
         </Link>
     )   
     list.unshift( 
